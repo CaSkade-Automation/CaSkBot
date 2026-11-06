@@ -20,7 +20,7 @@
 @base <http://www.w3id.org/hsu-aut/caskbot#> .
 
 <http://www.w3id.org/hsu-aut/caskbot#> rdf:type owl:Ontology ;
-                                        owl:versionIRI <http://www.w3id.org/hsu-aut/caskbot/1.23.0#> ;
+                                        owl:versionIRI <http://www.w3id.org/hsu-aut/caskbot/1.23.1#> ;
                                         owl:imports <http://purl.org/ieee1872-owl/cora> ,
                                                     <http://purl.org/ieee1872-owl/pos> ,
                                                     <http://w3id.org/hsu-aut/IEEE1872-2/3.0.0> ,
@@ -28,7 +28,7 @@
                                                     <http://www.w3id.org/hsu-aut/WADL/2.0.0> ,
                                                     <http://www.w3id.org/hsu-aut/cask/5.2.0> ;
                                         rdfs:comment "CaSkBot is part of a three-level ontology architecture for modelling capabilities and skills for autonomous robots (including UAV, UGV and USV). It is based on the CSS and CaSk ontologies and extends the CaSk ontology by the IEEE 1872 (CORA, CORAX, RPARTS, POS) and IEEE 1872.2 standards to represent autonomous robots, their structure, position, environment and interactions. Skill interfaces based on RESTful web services are aligned with the WADL ODP, so that the call address of a skill is part of the model; the MQTT interface is planned but not yet aligned." ;
-                                        owl:versionInfo "1.23.0" ;
+                                        owl:versionInfo "1.23.1" ;
                                         rdfs:label "CaSkBot"@en ;
                                         dcterms:title "CaSkBot - An Ontology for Capabilities and Skills of Heterogeneous Autonomous Robots"@en ;
                                         dcterms:description "CaSkBot is the robotics layer of the three-level CaSkade ontology architecture. It aligns the capability and skill model of CSS and CaSk with the robotics standards IEEE 1872 and IEEE 1872.2, so that autonomous robots, their structure, position, environment and interactions can be described together with the capabilities they provide."@en ;
@@ -36,7 +36,7 @@
                                         dcterms:publisher "Helmut-Schmidt-University, Institute of Automation Technology" ;
                                         dcterms:license <https://opensource.org/licenses/MIT> ;
                                         dcterms:created "2023-02-01"^^<http://www.w3.org/2001/XMLSchema#date> ;
-                                        dcterms:modified "2026-11-05"^^<http://www.w3.org/2001/XMLSchema#date> ;
+                                        dcterms:modified "2026-11-06"^^<http://www.w3.org/2001/XMLSchema#date> ;
                                         dcterms:bibliographicCitation "L. M. Vieira da Silva, A. Koecher, A. Fay: A capability and skill model for heterogeneous autonomous robots. at - Automatisierungstechnik 71(2), 2023, pp. 140-150. DOI 10.1515/auto-2022-0122" ;
                                         vann:preferredNamespacePrefix "caskbot" ;
                                         vann:preferredNamespaceUri "http://www.w3id.org/hsu-aut/caskbot#" ;
@@ -62,46 +62,37 @@ vann:preferredNamespaceUri rdf:type owl:AnnotationProperty .
 
 #################################################################
 #
-#    ALIGNMENT-MECHANISMEN
+#    ALIGNMENT MECHANISMS
 #
-#    Nach Hildebrandt et al. (2020), Abschn. IV-C, gibt es vier Wege, eine
-#    fremde TBox ohne Reconciliation zu erweitern. Jedes Alignment-Axiom unten
-#    nennt den verwendeten Mechanismus. Verwendet werden hier:
+#    Hildebrandt et al. (2020), IV-C, name four ways of extending a foreign
+#    TBox without reconciliation. Every alignment axiom below names the
+#    mechanism it uses:
 #
-#      subclassing    rdfs:subClassOf zwischen Klassen zweier ODPs -- Regelfall
-#      Relation-to    neue Object Property zwischen zwei ODPs, wenn die
-#                     Standards keine passende Relation anbieten
-#      subclassing auf Property-Ebene
-#                     rdfs:subPropertyOf zwischen zwei *fremden* Relationen.
-#                     Nicht im Katalog von Hildebrandt, der nur Klassen
-#                     behandelt; das Gegenstueck dazu fuer Relationen. Zu
-#                     unterscheiden von Relation-to, wo eine *eigene* neue
-#                     Relation unter eine fremde gehaengt wird (operatesIn,
-#                     memberOfGroup usw.). Seit 1.21.0 einmal verwendet
-#                     (VDI2206:isPartOf unter SUMO:part, ADR-017).
+#      subclassing    rdfs:subClassOf between classes of two patterns
+#      Relation-to    a new object property between two patterns, where the
+#                     standards offer no suitable relation
+#      subclassing at property level
+#                     rdfs:subPropertyOf between two foreign relations. Not in
+#                     Hildebrandt's catalogue, which covers classes only; the
+#                     counterpart for relations. Distinct from Relation-to,
+#                     where a new relation of our own is placed under a
+#                     foreign one.
+#      Equivalent-To  owl:equivalentClass -- not used here
 #
-#    Nicht verwendet:
-#
-#      Equivalent-To  owl:equivalentClass -- zu stark ueber ODP-Grenzen hinweg,
-#                     nur mit ADR (siehe F-005, F-007, F-020)
-#      attribute-to-class  bisher kein Anlass
-#
-#    Der Matcher ist laut Hildebrandt immer projektspezifisch: Ein Alignment
-#    wird nicht vollstaendig gemacht, sondern genau so weit, wie die
-#    Competency Questions es verlangen.
+#    C. Hildebrandt et al.: Ontology Building for Cyber-Physical Systems:
+#    Application in the Manufacturing Domain. IEEE Transactions on Automation
+#    Science and Engineering, 2020.
 #
 #################################################################
 
 
 #################################################################
 #
-#    ASPEKT STRUKTUR
+#    STRUCTURE
 #
-#    Verbindet die Roboterbegriffe aus IEEE 1872 (CORA) mit der
-#    mechatronischen Systembeschreibung aus VDI 2206 und damit mit der
-#    Ressourcen- und Fähigkeitsseite aus VDI 3682 und CSS.
-#
-#    Deckt CQ-01 bis CQ-06, Anforderungen A1, A3, A5, A6.
+#    Connects the robot vocabulary of IEEE 1872 (CORA) with the mechatronic
+#    system description of VDI 2206, and through it with the resource and
+#    capability side of VDI 3682 and CSS.
 #
 #################################################################
 
@@ -110,24 +101,18 @@ vann:preferredNamespaceUri rdf:type owl:AnnotationProperty .
 #################################################################
 
 ###  http://purl.org/ieee1872-owl/cora-bare#Robot
-# Ein Roboter ist ein mechatronisches System im Sinne der VDI 2206. Damit
-# greift die in CaSk bestehende Kette
+# A robot is a mechatronic system in the sense of VDI 2206. This engages the
+# chain that CaSk already provides,
 #     VDI2206:System -> VDI3682:TechnicalResource -> CSS:Resource
-# und ein Roboter kann über CSS:providesCapability Fähigkeiten anbieten.
-# Das ist die zentrale Naht zwischen der Robotik- und der Fähigkeitsseite.
-#
-# Hinweis: Die Publikation schreibt "Robot subClassOf MechatronicSystem".
-# Eine Klasse dieses Namens gibt es im VDI-2206-ODP nicht; sie heißt System
-# (siehe F-014).
-# Mechanismus: subclassing (IEEE 1872 -> VDI 2206)
+# so that a robot can offer capabilities through CSS:providesCapability. This
+# is the central seam between the robotics and the capability side.
+# Mechanism: subclassing (IEEE 1872 -> VDI 2206)
 CORA:Robot rdfs:subClassOf VDI2206:System .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#AutonomousRobot
-# Eigene Klasse, weil weder CORA noch IEEE 1872.2 einen Begriff anbieten, der
-# autonome von ferngesteuerten Robotern unterscheidet. CORA hätte dafür die
-# Properties agentRobot/fullyautonomousRobot vorgesehen, die jedoch
-# unerfüllbar sind (F-002) und deshalb nicht genutzt werden können.
+# A class of our own, because neither CORA nor IEEE 1872.2 offers a term that
+# distinguishes autonomous from remotely controlled robots.
 :AutonomousRobot rdf:type owl:Class ;
                  rdfs:subClassOf CORA:Robot ,
                                  [ rdf:type owl:Restriction ;
@@ -140,8 +125,8 @@ CORA:Robot rdfs:subClassOf VDI2206:System .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#Platform
-# Die Plattform trägt die Fortbewegungsart und damit die Modalität. Sie ist
-# ein Modul im Sinne der VDI 2206 und kann so aus Komponenten bestehen.
+# The platform carries the means of locomotion and thus the modality. It is a
+# module in the sense of VDI 2206 and can therefore consist of components.
 :Platform rdf:type owl:Class ;
           rdfs:subClassOf VDI2206:Module ;
           rdfs:label "platform"@en ;
@@ -170,48 +155,30 @@ CORA:Robot rdfs:subClassOf VDI2206:System .
 
 
 ###  http://www.w3id.org/hsu-aut/VDI2206#Component
-# Komponenten eines Roboters sind Geräte im Sinne von SUMO. Erst dadurch
-# erfüllen Sensoren, Aktoren und Steuerungen die Domain von CORA:robotPart
-# und lassen sich einem Roboter zuordnen.
-# Mechanismus: subclassing (VDI 2206 -> SUMO)
+# Components of a robot are devices in the sense of SUMO. Only then do
+# sensors, actuators and controllers satisfy the domain of CORA:robotPart and
+# can be related to a robot.
+# Mechanism: subclassing (VDI 2206 -> SUMO)
 VDI2206:Component rdfs:subClassOf SUMO:Device .
 
 
 ###  http://www.w3id.org/hsu-aut/VDI2206#isPartOf
-# Die Teil-Hierarchien der beiden Standards haengen zusammen: Ohne dieses Axiom
-# beschreibt das Modell die Struktur eines Roboters in zwei Baeumen, zwischen
-# denen keine Aussage besteht -- IEEE 1872 mit SUMO:part und CORA:robotPart,
-# VDI 2206 mit isPartOf/consistsOf. Eine Abfrage ueber den einen findet die
-# Teile des anderen nicht: CQ-02 fand die Plattform nicht, obwohl sie das
-# groesste Bauteil ist (F-068, ADR-017).
+# Joins the part hierarchies of the two standards: IEEE 1872 uses SUMO:part
+# and CORA:robotPart, VDI 2206 uses isPartOf and consistsOf. Without this
+# axiom a query over the one does not find the parts described with the other.
 #
-# Leserichtung geprueft: isPartOf laeuft vom Teil zum Ganzen (Domain Component,
-# Range Module bzw. System), SUMO:part ebenso -- SUMO legt
-# (domain part 1 Object) (domain part 2 Object) fest und liest part(Teil,
-# Ganzes). Dieselbe Richtung wie CORA:robotPart (F-014).
+# Both relations read from the part to the whole: isPartOf has domain
+# Component and range Module or System, and SUMO defines
+# (domain part 1 Object) (domain part 2 Object) with part(part, whole) -- the
+# same direction as CORA:robotPart.
 #
-# Zulaessig: SUMO:part traegt in der OWL-Fassung von IEEE 1872 weder Domain noch
-# Range (F-063), wird in keiner Restriktion verwendet und ist weder asymmetrisch
-# noch irreflexiv -- es wird also keine Zusicherung verletzt. Dass VDI2206:isPartOf
-# transitiv ist, macht SUMO:part non-simple; das ist unschaedlich, weil SUMO:part
-# nirgends in einer Kardinalitaets-, Asymmetrie- oder Irreflexivitaetsangabe
-# vorkommt. SUMO:member bleibt simple und damit zulaessig asymmetrisch, weil
-# Nicht-Simplizitaet nach unten und nicht nach oben vererbt wird.
-# Am Profilpruefer belegt: keine neue OWL-2-DL-Verletzung.
-#
-# Mechanismus: subclassing auf Property-Ebene (VDI 2206 -> SUMO). Hildebrandt
-# u. a. (2020), Abschn. IV-C nennt nur das Subclassing von Klassen; dies ist
-# dessen Gegenstueck fuer Relationen. Erster Fall in CaSkBot, in dem zwei
-# *fremde* Relationen verbunden werden -- die uebrigen subPropertyOf-Axiome
-# haengen eine eigene Relation unter eine fremde (Relation-to).
+# Mechanism: subclassing at property level (VDI 2206 -> SUMO)
 VDI2206:isPartOf rdfs:subPropertyOf SUMO:part .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#RestrictedZone
-# Anforderung A6 verlangt ausdrücklich Randbedingungen wie Sperrzonen. POS
-# stellt mit PositionRegion das räumliche Gebiet bereit; die Bedeutung
-# "hier darf nicht operiert werden" ist dort nicht vorgesehen und wird hier
-# ergänzt.
+# POS provides the spatial region through PositionRegion; the meaning "robots
+# must not operate here" is not part of it and is added here.
 :RestrictedZone rdf:type owl:Class ;
                 rdfs:subClassOf POS:PositionRegion ;
                 rdfs:label "restricted zone"@en ;
@@ -220,54 +187,44 @@ VDI2206:isPartOf rdfs:subPropertyOf SUMO:part .
 
 #################################################################
 #
-#    ALIGNMENT MIT IEEE 1872.2 (AuR)
+#    ALIGNMENT WITH IEEE 1872.2 (AuR)
 #
-#    IEEE 1872 und IEEE 1872.2 beschreiben teils dieselben Sachverhalte,
-#    ordnen sie aber unterschiedlich ein. Die Verbindungen werden hier
-#    hergestellt; der Standard selbst stellt sie nicht her.
+#    IEEE 1872 and IEEE 1872.2 describe some of the same matters but classify
+#    them differently. The standards do not relate the two; the axioms below
+#    do.
 #
 #################################################################
 
 ###  http://w3id.org/hsu-aut/IEEE1872-2#ObjectCenteredEnvironment
-# Eine objektzentrierte Umgebung ist eine physische Umgebung -- nur eben aus
-# der Sicht eines bestimmten Objekts. IEEE 1872.2, Abschn. 4.4.2 beschreibt sie
-# ausdruecklich als "a physical object comprising all the entities ... that
-# could potentially interact with the object".
-#
-# Typvertraeglich: ObjectCenteredEnvironment ⊑ DUL:PhysicalObject, und das ODP
-# setzt DUL:PhysicalObject ≡ sumo-cora:CorpuscularObject ⊑ ... ⊑ SUMO:Object,
-# worunter auch CORAX:PhysicalEnvironment liegt.
-# Mechanismus: subclassing (IEEE 1872.2 -> IEEE 1872 CORAX)
+# An object-centered environment is a physical environment, seen from the
+# perspective of one object. IEEE 1872.2, 4.4.2 describes it as "a physical
+# object comprising all the entities ... that could potentially interact with
+# the object".
+# Mechanism: subclassing (IEEE 1872.2 -> IEEE 1872 CORAX)
 AuR:ObjectCenteredEnvironment rdfs:subClassOf CORAX:PhysicalEnvironment .
 
 
 ###  http://purl.org/ieee1872-owl/cora-bare#RoboticSystem
-# Auch ein robotisches System bietet Faehigkeiten an, nicht nur ein einzelner
-# Roboter. Ohne diese Verknuepfung koennte ein Verbund -- ein
-# CollectiveRoboticSystem -- keine Capability tragen, weil CSS:providesCapability
-# eine CSS:Resource verlangt. Fuer eine Arbeit ueber Verbuende waere das Modell
-# damit an der entscheidenden Stelle unbrauchbar.
-#
-# CORA haengt RoboticSystem unter CORAX:ArtificialSystem; die Verbindung zur
-# Faehigkeitsseite stellt erst dieses Alignment her.
-# Mechanismus: subclassing (IEEE 1872 -> VDI 3682)
+# A robotic system offers capabilities as well, not only a single robot.
+# Without this axiom a collective robotic system could not carry a capability,
+# because CSS:providesCapability requires a CSS:Resource. CORA places
+# RoboticSystem under CORAX:ArtificialSystem and does not reach the capability
+# side.
+# Mechanism: subclassing (IEEE 1872 -> VDI 3682)
 CORA:RoboticSystem rdfs:subClassOf VDI3682:TechnicalResource .
 
 
 ###  http://purl.org/ieee1872-owl/cora-bare#RobotGroup
-# Dasselbe fuer die Robotergruppe: Eine Gruppe verfolgt laut CORA gemeinsam ein
-# Ziel und muss daher als Ganzes Faehigkeiten anbieten koennen.
-# Mechanismus: subclassing (IEEE 1872 -> VDI 3682)
+# The same for a robot group: according to CORA a group pursues a common goal
+# and therefore has to be able to offer capabilities as a whole.
+# Mechanism: subclassing (IEEE 1872 -> VDI 3682)
 CORA:RobotGroup rdfs:subClassOf VDI3682:TechnicalResource .
 
 
 ###  http://purl.org/ieee1872-owl/corax#ProcessingDevice
-# Die informationsverarbeitende Komponente eines mechatronischen Systems nach
-# VDI 2206 und das ProcessingDevice aus CORAX bezeichnen dieselbe Sache aus zwei
-# Blickwinkeln. Ohne Verknuepfung liessen sich Rechner eines Roboters in der
-# einen oder der anderen Taxonomie einordnen, ohne dass das Modell beides
-# zusammenbrachte.
-# Mechanismus: subclassing (IEEE 1872 CORAX -> VDI 2206)
+# The information-processing component of a mechatronic system in VDI 2206 and
+# the processing device of CORAX name the same thing from two perspectives.
+# Mechanism: subclassing (IEEE 1872 CORAX -> VDI 2206)
 CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 
 
@@ -276,10 +233,10 @@ CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 #################################################################
 
 ###  http://www.w3id.org/hsu-aut/caskbot#hasObjectCenteredEnvironment
-# Die objektzentrierte Umgebung eines Roboters. Spezialisierung von
-# operatesIn: Ein Roboter operiert in einer Umgebung, und die aus seiner Sicht
-# modellierte ist eine davon.
-# Mechanismus: Relation-to (IEEE 1872 CORA <-> IEEE 1872.2)
+# The object-centered environment of a robot, a specialisation of operatesIn:
+# a robot operates in an environment, and the one modelled from its own
+# perspective is one of them.
+# Mechanism: Relation-to (IEEE 1872 CORA <-> IEEE 1872.2)
 :hasObjectCenteredEnvironment rdf:type owl:ObjectProperty ;
                               rdfs:subPropertyOf :operatesIn ;
                               rdfs:domain CORA:Robot ;
@@ -289,12 +246,10 @@ CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#describesEnvironment
-# IEEE 1872.2 definiert in 4.4.3 die Umgebungsbeschreibung und die externe
-# Umgebungsbeschreibung, aber **keine Relation zu der Umgebung, die sie
-# beschreiben** -- obwohl genau das ihr Zweck ist. Die Beziehung steht nur in
-# der Prosadefinition, nicht in der Axiomatik. Ohne sie haengen beide Klassen
-# als reine Huellen im Modell.
-# Mechanismus: Relation-to (innerhalb IEEE 1872.2, dort nicht axiomatisiert)
+# IEEE 1872.2, 4.4.3 defines the environment description and the external
+# environment description, but no relation to the environment they describe;
+# that relation appears in the prose definition only.
+# Mechanism: Relation-to (within IEEE 1872.2, not axiomatised there)
 :describesEnvironment rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#isAbout> ;
                       rdfs:domain [ rdf:type owl:Class ;
@@ -308,23 +263,11 @@ CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#correspondsToFunction
-# Verbindet die Faehigkeitsseite mit dem Funktionsmodell von IEEE 1872.2.
-#
-# Die Publikation setzt hier ProcessOperator = Function. Das ist ein
-# Kategorienfehler (F-022): Ein ProcessOperator ist ein Prozessschritt, der
-# einen Zustand in einen anderen ueberfuehrt; AuR:Function ist die *Rolle*, die
-# ein Verhalten in einem Ereignis spielt, formal eine DUL:Role. Eine Operation
-# und eine Rolle sind nicht dasselbe, und eine Gleichsetzung zoege das gesamte
-# DUL-Rollenmodell in das Faehigkeitsmodell.
-#
-# Stattdessen eine gerichtete Relation: Zu einer Faehigkeit gehoert die Rolle,
-# die das sie realisierende Verhalten spielt. Zusammen mit exhibitsBehavior
-# (Roboter -> ManifestedBehavior) und AuR:isPlayedBy (Function -> nur
-# ManifestedBehavior) schliesst das den Bogen von "was kann der Roboter" zu
-# "was tut er gerade" -- die Ueberwachungsseite der alten A4 (CQ-29).
-# Seit ADR-011 ohne Anforderungsbezug, Entscheidung in ADR-012.
-#
-# Mechanismus: Relation-to (CSS <-> IEEE 1872.2)
+# Connects the capability side with the function model of IEEE 1872.2: a
+# capability has the role that the behavior realising it plays. Together with
+# exhibitsBehavior (robot -> ManifestedBehavior) and AuR:isPlayedBy it spans
+# from what a robot can do to what it is doing.
+# Mechanism: Relation-to (CSS <-> IEEE 1872.2)
 :correspondsToFunction rdf:type owl:ObjectProperty ;
                        rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#associatedWith> ;
                        rdfs:domain CSS:Capability ;
@@ -334,20 +277,14 @@ CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#exhibitsBehavior
-# Verbindet einen Roboter mit dem Verhalten, das er zeigt.
+# Relates a robot to the behavior it shows, and thereby makes the behavior
+# model of IEEE 1872.2 reachable from the robot side.
 #
-# In 1.8.0 war diese Relation entfernt worden, weil keine Anforderung sie
-# verlangt (ADR-008). Nach dem Kriterium der Alignment-Vollstaendigkeit
-# (ADR-009) war das falsch: Ohne sie haengt das gesamte Verhaltensmodell von
-# IEEE 1872.2 -- Behavior und seine fuenf Arten -- ohne Zugang von der
-# Roboterseite im Modell. Ein importiertes ODP, das sich nicht erreichen
-# laesst, ist totes Gewicht.
-#
-# Bewusst auf ManifestedBehavior eingeschraenkt: Nur diese Verhaltensart ist
-# eine Qualitaet (⊑ AuR:Interaction ⊑ DUL:Quality) und damit als Range von
-# DUL:hasQuality zulaessig. EngineeringBehavior und EmergentBehavior sind
-# InformationObjects, RuleBehavior ist ein PhysicalObject.
-# Mechanismus: Relation-to (IEEE 1872 CORA <-> IEEE 1872.2)
+# Restricted to ManifestedBehavior: only that kind of behavior is a quality
+# (⊑ AuR:Interaction ⊑ DUL:Quality) and therefore admissible as the range of
+# DUL:hasQuality. EngineeringBehavior and EmergentBehavior are information
+# objects, RuleBehavior is a physical object.
+# Mechanism: Relation-to (IEEE 1872 CORA <-> IEEE 1872.2)
 :exhibitsBehavior rdf:type owl:ObjectProperty ;
                   rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasQuality> ;
                   rdfs:domain CORA:Robot ;
@@ -357,18 +294,13 @@ CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#qualityOfInteraction
-# Bruecke zwischen den beiden Interaktionsbegriffen der IEEE-Standards.
-#
-# CORAX:Interaction ist ein Prozess (⊑ SUMO:Process ≡ DUL:Event),
-# AuR:Interaction ist eine Qualitaet (⊑ SUMO:Attribute ≡ DUL:Quality),
-# und DUL erklaert Event und Quality fuer disjunkt. Die beiden Klassen sind
-# damit notwendig verschieden -- eine Gleichsetzung machte beide unerfuellbar
-# (siehe F-020).
-#
-# Es ist aber kein Widerspruch, sondern eine andere Reifizierung: IEEE 1872.2
-# fasst die Interaktion als Qualitaet des Ereignisses, in dem die Objekte
-# teilnehmen (Abschn. 4.4.1). Genau diese Beziehung wird hier ausgedrueckt.
-# Mechanismus: Relation-to (IEEE 1872.2 <-> IEEE 1872 CORAX)
+# Bridges the two notions of interaction of the IEEE standards.
+# CORAX:Interaction is a process (⊑ SUMO:Process ≡ DUL:Event),
+# AuR:Interaction is a quality (⊑ SUMO:Attribute ≡ DUL:Quality), and DUL
+# declares event and quality disjoint. The two are therefore necessarily
+# different classes; IEEE 1872.2, 4.4.1 reads the interaction as a quality of
+# the event the objects participate in, and that is the relation stated here.
+# Mechanism: Relation-to (IEEE 1872.2 <-> IEEE 1872 CORAX)
 :qualityOfInteraction rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#isQualityOf> ;
                       rdfs:domain AuR:Interaction ;
@@ -378,19 +310,11 @@ CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#operatesIn
-# Neue Relation, weil IEEE 1872 keine passende anbietet: CORA:equippedWith
-# verbindet eine RoboticEnvironment mit einem RoboticSystem. Ein Robot ist
-# laut IEEE 1872 aber kein RoboticSystem, sondern dessen Bestandteil
-# (RoboticSystem ≡ SingleRoboticSystem ⊔ CollectiveRoboticSystem). Für die
-# Frage "in welcher Umgebung operiert dieser Roboter" (CQ-06) fehlt damit ein
-# direkter Weg, ohne für jeden Roboter ein umschließendes Systemindividuum
-# anlegen zu müssen.
-#
-# Die Relation haengt unter DUL:hasLocation. Eine umgebungsspezifische Relation
-# bieten die Standards nicht, eine generische Verortung aber schon (daneben
-# SUMO:located und SUMO:partlyLocated). Eine eigene Relation gehoert in das
-# Standardvokabular eingehaengt, nicht frei daneben gestellt.
-# Mechanismus: Relation-to (IEEE 1872 CORA <-> CORAX)
+# A new relation, because IEEE 1872 offers none that fits: CORA:equippedWith
+# relates a robotic environment to a robotic system, and a robot is not a
+# robotic system but part of one. The relation is placed under
+# DUL:hasLocation, the generic notion of being located somewhere.
+# Mechanism: Relation-to (IEEE 1872 CORA <-> CORAX)
 :operatesIn rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasLocation> ;
             rdfs:domain CORA:Robot ;
@@ -401,7 +325,7 @@ CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#hasRestrictedZone
-# Mechanismus: Relation-to (IEEE 1872 CORAX <-> eigene Klasse)
+# Mechanism: Relation-to (IEEE 1872 CORAX <-> class of our own)
 :hasRestrictedZone rdf:type owl:ObjectProperty ;
                    rdfs:domain CORAX:PhysicalEnvironment ;
                    rdfs:range :RestrictedZone ;
@@ -410,10 +334,10 @@ CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#memberOfGroup
-# SUMO:member ist Subproperty von part und traegt weder Domain noch Range.
-# Die Leserichtung folgt part und robotPart: Teil -> Ganzes, hier also
-# Roboter -> Gruppe.
-# Mechanismus: Relation-to (Spezialisierung von SUMO:member)
+# SUMO:member is a subproperty of part and carries neither domain nor range.
+# The direction follows part and robotPart: part to whole, here robot to
+# group.
+# Mechanism: Relation-to (specialisation of SUMO:member)
 :memberOfGroup rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf SUMO:member ;
                rdfs:domain CORA:Robot ;
@@ -424,33 +348,24 @@ CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 
 #################################################################
 #
-#    ALIGNMENT MIT WADL (REST-Aufrufschnittstelle)
+#    ALIGNMENT WITH WADL (REST call interface)
 #
-#    CSS kennt die Aufrufschnittstelle eines Skills (CSS:SkillInterface), CaSk
-#    den technologieoffenen Ausloeser (CaSk:SkillMethod, Kommentar dort:
-#    "Needs to be implemented and modeled in detail for a specific
-#    technology"). Was beide nicht sagen, ist die Adresse: Basis-URI, Pfad und
-#    HTTP-Verb. Genau das beschreibt WADL, und nur dieser Teil wird aligned
-#    (CQ-17, CQ-36 -- Anforderung A4).
+#    CSS has the call interface of a skill (CSS:SkillInterface) and CaSk the
+#    technology-independent trigger (CaSk:SkillMethod). Neither carries the
+#    address: base URI, path and HTTP verb. That is what WADL describes, and
+#    that part is what is aligned here.
 #
-#    Nicht aligned wird die Parameterseite von WADL. CaSk fuehrt auf
-#    CSS:SkillParameter bereits hasVariableName, hasVariableType,
-#    hasDefaultValue, hasOptionValue und isRequired; WADL:Parameter doppelt das
-#    vollstaendig. Eine zweite Beschreibung desselben Sachverhalts ohne CQ
-#    waere ein Verstoss gegen Regel 6 -- begruendet in ADR-019.
-#
-#    WADL ist eine Beschreibungssprache: Resources, Resource und Method sind
-#    Elemente eines Dokuments, nicht die Schnittstelle selbst. Ein
-#    subclassing-Axiom zwischen RestSkillInterface und einer WADL-Klasse waere
-#    deshalb falsch -- dieselbe Unterscheidung, die IEEE 1872.2 zwischen
-#    Umgebung und Umgebungsbeschreibung macht. Zur WADL-Seite also
-#    durchgehend Relation-to.
+#    WADL is a description language: Resources, Resource and Method are
+#    elements of a document, not the interface itself. The axioms towards the
+#    WADL side are therefore relations throughout, not subclass axioms -- the
+#    same distinction IEEE 1872.2 makes between an environment and its
+#    description.
 #
 #################################################################
 
 ###  http://www.w3id.org/hsu-aut/caskbot#RestSkillInterface
-# Mechanismus: subclassing (CSS <-> eigene Klasse). Gleich benannt wie
-# CaSkMan:RestSkillInterface, damit die dritte Ebene einheitlich bleibt.
+# Mechanism: subclassing (CSS <-> class of our own). Named as in
+# CaSkMan:RestSkillInterface, so that the third level stays uniform.
 :RestSkillInterface rdf:type owl:Class ;
                     rdfs:subClassOf CSS:SkillInterface ;
                     rdfs:label "REST skill interface"@en ;
@@ -458,20 +373,20 @@ CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#accessibleThroughRestInterface
-# Mechanismus: Relation-to (CSS <-> eigene Klasse), wortgleich zu
+# Mechanism: Relation-to (CSS <-> class of our own), as in
 # CaSkMan:accessibleThroughRestInterface.
 :accessibleThroughRestInterface rdf:type owl:ObjectProperty ;
                                 rdfs:subPropertyOf CSS:accessibleThrough ;
                                 rdfs:domain CSS:Skill ;
                                 rdfs:range :RestSkillInterface ;
                                 rdfs:label "accessible through REST interface"@en ;
-                                rdfs:comment "Relates a skill to a REST interface through which it can be invoked. Specialisation of CSS:accessibleThrough and the technology part of the answer to CQ-17."@en .
+                                rdfs:comment "Relates a skill to a REST interface through which it can be invoked. Specialisation of CSS:accessibleThrough."@en .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#describesRestSkillInterface
-# Mechanismus: Relation-to (WADL <-> CSS). Richtung Beschreibung ->
-# Beschriebenes, wie bei :describesEnvironment. WADL bietet keine solche
-# Relation an, weil ein WADL-Dokument nichts von Skills weiss.
+# Mechanism: Relation-to (WADL <-> CSS), from the description to the thing
+# described, as with :describesEnvironment. A WADL document knows nothing
+# about skills, so the standard offers no such relation.
 :describesRestSkillInterface rdf:type owl:ObjectProperty ;
                              rdfs:domain WADL:Resources ;
                              rdfs:range :RestSkillInterface ;
@@ -480,22 +395,22 @@ CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 
 
 ###  http://www.w3id.org/hsu-aut/caskbot#invokedByHttpMethod
-# Mechanismus: Relation-to (CaSk <-> WADL). Bewusst ohne Oberproperty:
-# CSS:isRealizedBy traegt eine Domain-Union ohne SkillMethod, ein Unterhaengen
-# wuerde CaSk:SkillMethod faelschlich in diese Union zwingen.
+# Mechanism: Relation-to (CaSk <-> WADL). Without a superproperty:
+# CSS:isRealizedBy carries a domain union that does not include SkillMethod,
+# so placing this property under it would force CaSk:SkillMethod into that
+# union.
 :invokedByHttpMethod rdf:type owl:ObjectProperty ;
                      rdfs:domain CaSk:SkillMethod ;
                      rdfs:range WADL:Method ;
                      rdfs:label "invoked by HTTP method"@en ;
-                     rdfs:comment "Relates a skill method, which is the technology-independent trigger of a state transition in CaSk, to the HTTP method that invokes it. Together with the path of the WADL resource carrying that method and the base URI of the enclosing resources element, this gives the complete call address (CQ-36)."@en .
+                     rdfs:comment "Relates a skill method, which is the technology-independent trigger of a state transition in CaSk, to the HTTP method that invokes it. Together with the path of the WADL resource carrying that method and the base URI of the enclosing resources element, this gives the complete call address."@en .
 
 
 #################################################################
-#    Disjunktheit
+#    Disjointness
 #################################################################
 
-# Eine Plattform ist genau einer Modalität zugeordnet. Ohne diese Aussage
-# kann der Reasoner eine widersprüchliche Modellierung nicht erkennen.
+# A platform has exactly one modality.
 [ rdf:type owl:AllDisjointClasses ;
   owl:members ( :AerialPlatform :GroundPlatform :SurfacePlatform )
 ] .
@@ -503,26 +418,21 @@ CORAX:ProcessingDevice rdfs:subClassOf VDI2206:InformationProcessing .
 
 #################################################################
 #
-#    Position, Orientierung und Pose -- ohne eigene Axiome
+#    Position, orientation and pose -- no axioms of our own
 #
-#    POS stellt bereits alles bereit, was A5 verlangt:
-#        positionedAt  Object -> PositionMeasure
-#        orientedAt    Object -> OrientationMeasure
-#        pose          Object -> PoseMeasure
-#        posePosition  PoseMeasure -> PositionMeasure
-#        poseOrientation PoseMeasure -> OrientationMeasure
-#        inPCS / inOCS   Bezugssystem, beide funktional
-#        refPCS / refOCS Verankerung eines Koordinatensystems an einem Objekt
+#    POS already provides what is needed, and its relations apply to robots
+#    without an alignment axiom:
+#        positionedAt     Object -> PositionMeasure
+#        orientedAt       Object -> OrientationMeasure
+#        pose             Object -> PoseMeasure
+#        posePosition     PoseMeasure -> PositionMeasure
+#        poseOrientation  PoseMeasure -> OrientationMeasure
+#        inPCS / inOCS    frame of reference, both functional
+#        refPCS / refOCS  anchors a coordinate system to an object
 #
-#    Alle drei Zuordnungsproperties haben Domain sumo-cora:Object, und es gilt
+#    All three assignment properties have domain sumo-cora:Object, and
 #        Robot ⊑ Device ⊑ Artifact ⊑ CorpuscularObject
 #              ⊑ SelfConnectedObject ⊑ Object
-#    Ein Alignment-Axiom waere hier also redundant und wuerde nur Rauschen
-#    erzeugen (CLAUDE.md Regel 6).
-#
-#    Dass ein Roboter eine Position HABEN MUSS, ist keine OWL-Aussage: In der
-#    offenen Welt erzeugt eine Existenzrestriktion keinen Pruefdruck. Diese
-#    Vollstaendigkeitsforderung gehoert nach constraints/ als SHACL-Shape.
 #
 #################################################################
 
