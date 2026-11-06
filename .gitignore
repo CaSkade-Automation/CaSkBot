@@ -1,0 +1,15 @@
+catalog-*.xml
+*.properties
+
+# Paid-for standard documents -- NEVER commit these (copyright)
+standards/
+
+# Tools and build artefacts
+.venv/
+tools/robot.jar
+build/
+__pycache__/
+
+# Working files of the author, not part of the pattern
+/CLAUDE.md
+.claude/
