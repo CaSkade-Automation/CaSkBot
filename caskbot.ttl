@@ -22,7 +22,7 @@
 @base <http://www.w3id.org/hsu-aut/caskbot#> .
 
 <http://www.w3id.org/hsu-aut/caskbot#> rdf:type owl:Ontology ;
-                                        owl:versionIRI <http://www.w3id.org/hsu-aut/caskbot/2.0.0#> ;
+                                        owl:versionIRI <http://www.w3id.org/hsu-aut/caskbot/2.1.0#> ;
                                         owl:imports <http://purl.org/ieee1872-owl/cora> ,
                                                     <http://purl.org/ieee1872-owl/pos> ,
                                                     <https://raw.githubusercontent.com/opengeospatial/ogc-geosparql/019821868049d4710c0ba31578ab16c8c1b46e6c/geosparql11/geo.ttl> ,
@@ -30,9 +30,9 @@
                                                     <http://www.w3id.org/hsu-aut/MQTT/6.0.1> ,
                                                     <http://www.w3id.org/hsu-aut/RobotCapabilities/2.0.2> ,
                                                     <http://www.w3id.org/hsu-aut/WADL/2.0.0> ,
-                                                    <http://www.w3id.org/hsu-aut/cask/5.2.0> ;
+                                                    <http://www.w3id.org/hsu-aut/cask/5.3.0> ;
                                         rdfs:comment "CaSkBot is part of a three-level ontology architecture for modelling capabilities and skills for autonomous robots (including UAV, UGV and USV). It is based on the CSS and CaSk ontologies and extends the CaSk ontology by the IEEE 1872 (CORA, CORAX, RPARTS, POS) and IEEE 1872.2 standards to represent autonomous robots, their structure, position, environment and interactions. Skill interfaces are aligned with the WADL and the MQTT ODP, so that the call address of a skill is part of the model, whether it is reached over HTTP or over a publish/subscribe broker. The spatial extent of a zone is given as a GeoSPARQL geometry." ;
-                                        owl:versionInfo "2.0.0" ;
+                                        owl:versionInfo "2.1.0" ;
                                         rdfs:label "CaSkBot"@en ;
                                         dcterms:title "CaSkBot - An Ontology for Capabilities and Skills of Heterogeneous Autonomous Robots"@en ;
                                         dcterms:description "CaSkBot is the robotics layer of the three-level CaSkade ontology architecture. It aligns the capability and skill model of CSS and CaSk with the robotics standards IEEE 1872 and IEEE 1872.2, so that autonomous robots, their structure, position, environment and interactions can be described together with the capabilities they provide."@en ;
@@ -40,7 +40,7 @@
                                         dcterms:publisher "Helmut-Schmidt-University, Institute of Automation Technology" ;
                                         dcterms:license <https://opensource.org/licenses/MIT> ;
                                         dcterms:created "2023-02-01"^^<http://www.w3.org/2001/XMLSchema#date> ;
-                                        dcterms:modified "2026-11-06"^^<http://www.w3.org/2001/XMLSchema#date> ;
+                                        dcterms:modified "2026-11-13"^^<http://www.w3.org/2001/XMLSchema#date> ;
                                         dcterms:bibliographicCitation "L. M. Vieira da Silva, A. Koecher, A. Fay: A capability and skill model for heterogeneous autonomous robots. at - Automatisierungstechnik 71(2), 2023, pp. 140-150. DOI 10.1515/auto-2022-0122" ;
                                         vann:preferredNamespacePrefix "caskbot" ;
                                         vann:preferredNamespaceUri "http://www.w3id.org/hsu-aut/caskbot#" ;
